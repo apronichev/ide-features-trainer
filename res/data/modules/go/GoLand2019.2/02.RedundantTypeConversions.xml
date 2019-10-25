@@ -1,0 +1,24 @@
+<xml type="Scenario" name="Redundant type conversions" id="Goland2019.2.RedundantTypeConversions" lang="go">
+    <MouseBlock>
+        <CopyText><![CDATA[package main
+
+import "io/ioutil"
+
+func main() {
+	_ = ioutil.WriteFile("./out.txt", []byte(getData()), 0644)
+}
+
+func getData() []byte {
+	return []byte("data")
+}
+]]></CopyText>
+    </MouseBlock>
+    <MoveCaret position="6:42"/>
+    <Text>The Redundant type conversions inspection warns you about redundant type conversions that can be omitted. Consider the following example:
+        <code>s := string("")
+            _ = s</code>
+Here code converts a string literal to a string. It is a redundant action because the output is a string anyway.</Text>
+    <Try action="ShowIntentionActions" trigger="ShowIntentionActions">Delete the unnecessary <code>[]byte</code> conversion in the <code>main</code> function. Click <code>[]byte</code> and press <action>ShowIntentionActions</action>.</Try>
+    <Try check="training.check.go.GoCheckDeleteConversion">Select <strong>Delete conversion</strong> and press <action>EditorEnter</action>.</Try>
+    <Win/>
+</xml>

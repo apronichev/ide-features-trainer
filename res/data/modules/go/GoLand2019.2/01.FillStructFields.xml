@@ -1,0 +1,28 @@
+<xml type="Scenario" name="Fill struct fields" id="Goland2019.2.FillStructFields" lang="go">
+    <MouseBlock>
+        <CopyText><![CDATA[package main
+
+import "fmt"
+
+type Address struct {
+	street string
+}
+
+type Person struct {
+	name string
+	age int
+	address Address
+}
+
+
+func main() {
+	p := Person{}
+	fmt.Println(p)
+}
+]]></CopyText>
+    </MouseBlock>
+    <MoveCaret position="17:17"/>
+    <Try action="ShowIntentionActions" trigger="ShowIntentionActions">When you create a new struct, you can automatically generate field names for it. For example, place a caret between curly braces of the Person struct and press <action>ShowIntentionActions</action>.</Try>
+    <Try check="training.check.go.GoCheckFillStructFields">Select <strong>Fill all fields</strong> and press <action>EditorEnter</action>.</Try>
+    <Win/>
+</xml>
