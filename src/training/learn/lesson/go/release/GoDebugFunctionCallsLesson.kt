@@ -11,6 +11,7 @@ import com.intellij.xdebugger.XDebuggerManagerListener
 
 import training.commands.kotlin.TaskContext
 import training.learn.interfaces.Module
+import training.learn.lesson.general.GotoActionLesson
 import training.learn.lesson.kimpl.KLesson
 import training.learn.lesson.kimpl.LessonContext
 import training.learn.lesson.kimpl.parseLessonSample
@@ -48,17 +49,17 @@ func Factorial(n int, withBreak bool) int {
       prepareSample(sample)
       task("ToggleLineBreakpoint") {
         caret(6, 5)
-        text("Pressing ${action(it)} to toggle a breakpoint.")
+        text("In the debug mode, you can pass different values to a function and see what the function returns. Read more about the Evaluate expression feature in <a href=\"https://www.jetbrains.com/help/go/debugging-code.html#evaluate_expression_procedure\">GoLand documentation</a>.\n\n" +
+                "To start debugging, you need to create a breakpoint. Press ${action(it)} to toggle a breakpoint.")
         trigger("ToggleLineBreakpoint")
       }
       task("DebugClass") {
-        text("Start debugging with ${action(it)}.")
+        text("Run the debugging session by pressing ${action(it)}.")
         trigger("DebugClass")
         hitBreakpoint()
       }
       task("RunToCursor")
       {
-        editor.selectionModel.setSelection(272, 272)
         caret(18, 47)
         text("Click at the end of the line 18 and press ${action(it)} to execute the <strong>Run to cursor</strong> action.")
         trigger("RunToCursor")
