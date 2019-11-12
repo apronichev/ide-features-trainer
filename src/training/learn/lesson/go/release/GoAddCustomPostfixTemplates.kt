@@ -100,7 +100,7 @@ func main() {
 
     //    Checks the button that was pressed
     private fun TaskContext.checkButtonIsPressed(expected: String): Boolean =
-            (focusOwner as JButton).text?.toLowerCase() == expected.toLowerCase()
+            (focusOwner as? JButton)?.text?.toLowerCase() == expected.toLowerCase()
 
     //    Checks the dialog that was opened. Works for Settings/Preferences dialog
     private fun TaskContext.checkDialogIsOpened(expected: String): Boolean =
