@@ -1,5 +1,7 @@
 package training.learn.lesson.go.release
 
+import com.goide.sdk.GoSdkService
+import com.goide.sdk.GoSdkVersion
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.util.Disposer
@@ -45,7 +47,8 @@ func Factorial(n int, withBreak bool) int {
       prepareSample(sample)
       task("ToggleLineBreakpoint") {
         caret(6, 5)
-        text("In the debug mode, you can pass different values to a function and see what the function returns. Read more about the Evaluate expression feature in <a href=\"https://www.jetbrains.com/help/go/debugging-code.html#evaluate_expression_procedure\">GoLand documentation</a>.\n\n" +
+        text("In the debug mode, you can pass different values to a function and see what the function returns. Read more about the Evaluate expression feature in <a href=\"https://www.jetbrains.com/help/go/debugging-code.html#evaluate_expression_procedure\">GoLand documentation</a>.\n" +
+                (if (debuggerSupportsFunctionCalls()) "" else "<control>Note</control>: for this feature, you need to install Go 1.11 or later.\n") + 
                 "To start debugging, you need to create a breakpoint. Press ${action(it)} to toggle a breakpoint.")
         trigger("ToggleLineBreakpoint")
       }
@@ -93,6 +96,9 @@ func Factorial(n int, withBreak bool) int {
         trigger("Stop")
       }
     }
+
+  private fun TaskContext.debuggerSupportsFunctionCalls() =
+          GoSdkService.getInstance(project).getSdk(null).majorVersion.isAtLeast(GoSdkVersion.GO_1_11)
 
   private fun TaskContext.checkWordInTextField(expected: String): Boolean =
           (focusOwner as? JTextComponent)?.text?.replace(" ", "")?.toLowerCase() == expected.toLowerCase().replace(" ", "")

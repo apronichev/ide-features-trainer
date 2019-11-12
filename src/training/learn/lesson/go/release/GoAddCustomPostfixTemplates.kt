@@ -25,7 +25,6 @@ func main() {
 }
   """.trimIndent())
 
-
     override val lessonContent: LessonContext.() -> Unit
         get() = {
             prepareSample(sample)
@@ -33,8 +32,7 @@ func main() {
                 editor.selectionModel.setSelection(81, 126)
                 text("With postfix templates, you can transform an already-typed expression to a different one based" +
                         " on a postfix after the dot, the type of the expression, and its context. You can use a set of predefined postfix completion templates or create new templates. " +
-                        "For more information about custom postfix templates, see <a href = \"https://www.jetbrains.com/help/go/auto-completing-code.html#custom_postfix_templates\">this documentation article</a>.\n "+
-                        "<control>Note</control>: for this feature, you need to install Go 1.11 or later.\n" +
+                        "For more information about custom postfix templates, see <a href = \"https://www.jetbrains.com/help/go/auto-completing-code.html#custom_postfix_templates\">this documentation article</a>.\n"+
                         "To create a new postfix template right now, press ${action(it)} in the editor to copy the selected code snippet.")
                 trigger("EditorCopy")
             }
