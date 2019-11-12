@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module name="Features of GoLand 2019.2" lessonsPath="GoLand2019.2/" version="0.1" id="release2019.2" fileType="SCRATCH"
-        description="GoLand 2019.2 was released in July 2019. To learn more about the IDE features, visit our blog at https://blog.jetbrains.com.">
+        description="GoLand 2019.2 was released in July 2019. To learn more about the IDE features, visit our blog at https://blog.jetbrains.com/go.">
     <lesson filename="00.ExtractMethodRefactoringWithReturns.xml" lang="go"/>
     <lesson filename="01.FillStructFields.xml" lang="go"/>
     <lesson filename="02.RedundantTypeConversions.xml" lang="go"/>
