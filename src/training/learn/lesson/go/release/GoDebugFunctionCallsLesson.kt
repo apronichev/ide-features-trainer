@@ -3,15 +3,12 @@ package training.learn.lesson.go.release
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.util.Disposer
-
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSessionListener
 import com.intellij.xdebugger.XDebuggerManager
 import com.intellij.xdebugger.XDebuggerManagerListener
-
 import training.commands.kotlin.TaskContext
 import training.learn.interfaces.Module
-import training.learn.lesson.general.GotoActionLesson
 import training.learn.lesson.kimpl.KLesson
 import training.learn.lesson.kimpl.LessonContext
 import training.learn.lesson.kimpl.parseLessonSample
@@ -42,7 +39,6 @@ func Factorial(n int, withBreak bool) int {
 	}
 }
   """.trimIndent())
-
 
   override val lessonContent: LessonContext.() -> Unit
     get() = {
@@ -76,31 +72,33 @@ func Factorial(n int, withBreak bool) int {
         text("In the <strong>Expression</strong> field, start typing <code>Factorial</code>, select <code>Factorial(n int, withBreak bool)</code> from the suggestion list.")
         trigger("EditorChooseLookupItem")
       }
-      task("Factorial(6,true)") {
-        text("In parentheses, type <code>6,true</code>. The field must display $it.")
-        stateCheck {checkWordInTextField (it)}
+      task("Factorial(6, true)") {
+        text("In parentheses, type <code>6, true</code>. The field must display $it.")
+        stateCheck { checkWordInTextField(it) }
       }
-      task ("Evaluate"){
+      task("Evaluate") {
         text("Click <strong>Evaluate</strong>.")
-        stateCheck {checkButtonIsPressed(it)
-            }
-          }
-      task ("Close"){
-        text("Close the dialog by clicking the <strong>Close</strong> button.")
-        stateCheck {checkButtonIsPressed(it)
+        stateCheck {
+          checkButtonIsPressed(it)
         }
       }
-      task ("Stop"){
+      task("Close") {
+        text("Close the dialog by clicking the <strong>Close</strong> button.")
+        stateCheck {
+          checkButtonIsPressed(it)
+        }
+      }
+      task("Stop") {
         text("Press ${action(it)} to stop debugging and proceed to the next lesson.")
         trigger("Stop")
-        }
+      }
     }
 
   private fun TaskContext.checkWordInTextField(expected: String): Boolean =
-          (focusOwner as? JTextComponent)?.text?.toLowerCase() == expected.toLowerCase()
+          (focusOwner as? JTextComponent)?.text?.replace(" ", "")?.toLowerCase() == expected.toLowerCase().replace(" ", "")
 
   private fun TaskContext.checkButtonIsPressed(expected: String): Boolean =
-          (focusOwner as JButton).text?.toLowerCase() == expected.toLowerCase()
+          (focusOwner as? JButton)?.text?.toLowerCase() == expected.toLowerCase()
 
   private fun TaskContext.hitBreakpoint() {
     val future: CompletableFuture<Boolean> = CompletableFuture()
@@ -109,7 +107,7 @@ func Factorial(n int, withBreak bool) int {
     project.messageBus.connect(disposable).subscribe(XDebuggerManager.TOPIC, object : XDebuggerManagerListener {
       override fun processStarted(debugProcess: XDebugProcess) {
         debugProcess.session.addSessionListener(object : XDebugSessionListener {
-          override fun sessionPaused() {
+          override fun stackFrameChanged() {
             ApplicationManager.getApplication().invokeLater {
               if (!future.isDone && !future.isCancelled) {
                 future.complete(true)
