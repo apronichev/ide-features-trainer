@@ -94,7 +94,7 @@ func Factorial(n int, withBreak bool) int {
         }
       }
       task("Stop") {
-        text("Press ${action(it)} to stop debugging and proceed to the next lesson.")
+        text("Press ${action(it)} to stop debugging and finish the lesson.")
         trigger("Stop")
       }
     }
