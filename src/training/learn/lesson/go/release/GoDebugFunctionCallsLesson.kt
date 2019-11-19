@@ -60,7 +60,7 @@ func Factorial(n int, withBreak bool) int {
       task("RunToCursor")
       {
         caret(18, 47)
-        text("The caret now is at the end of the line 18. Press ${action(it)} to execute the <strong>Run to cursor</strong> action.")
+        text("The caret now is at the end of the line 18. Press ${action(it)} to see how the <strong>Run to cursor</strong> action works.")
         trigger("RunToCursor")
       }
       task("StepInto") {
