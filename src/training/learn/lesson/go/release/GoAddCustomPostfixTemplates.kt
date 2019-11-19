@@ -2,7 +2,9 @@ package training.learn.lesson.go.release
 
 import com.goide.psi.GoFile
 import com.intellij.ide.actions.searcheverywhere.SearchEverywhereUI
+import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.psi.PsiDocumentManager
+import com.intellij.ui.components.JBList
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.components.fields.ExtendableTextField
 import com.intellij.util.ui.UIUtil
@@ -13,6 +15,7 @@ import training.learn.lesson.kimpl.LessonContext
 import training.learn.lesson.kimpl.parseLessonSample
 import javax.swing.JButton
 import javax.swing.JDialog
+import javax.swing.JList
 import javax.swing.text.JTextComponent
 
 class GoAddCustomPostfixTemplates(module: Module) : KLesson("Add custom postfix templates", module, "go") {
@@ -62,12 +65,10 @@ func main() {
                 stateCheck { checkWordInTextField(it) }
             }
 
-/*
             task("array") {
                 text("Press <action>NewElement</action> and select <strong>array</strong>.")
                 stateCheck { checkItemIsSelected(it) }
             }
-*/
 
             task("for i := len(\$EXPR\$) - 1; i >= 0; i-- {\$END\$}") {
                 text("In the text field at the bottom of the dialog, paste the code snippet that you have copied on the <strong>Step 1</strong>.")
@@ -111,10 +112,10 @@ func main() {
             focusOwner is JBTextField && UIUtil.getParentOfType(JDialog::class.java, focusOwner)?.title == expected
     //    Checks the dialog that was opened inside Settings/Preferences
 
-/*
-    private fun TaskContext.checkItemIsSelected(expected: String): Boolean =
-            (focusOwner as AnAction)?.templateText == expected
 
+    private fun TaskContext.checkItemIsSelected(expected: String): Boolean =
+            focusOwner is JBTextField && UIUtil.getParentOfType(JBList::class.java, focusOwner)?.toString() == expected
+/*
   // Have a look at ((AddConditionAction)this).myTemplatePresentation.myTextWithMnemonic.toString().equals("array")
   //
   //((DumbAwareAction)this).myTemplatePresentation.myTextWithMnemonic.toString().equals("array")

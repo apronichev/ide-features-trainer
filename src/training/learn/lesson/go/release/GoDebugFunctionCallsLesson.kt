@@ -53,14 +53,14 @@ func Factorial(n int, withBreak bool) int {
         trigger("ToggleLineBreakpoint")
       }
       task("DebugClass") {
-        text("Run the debugging session by pressing ${action(it)}.")
+        text("Run the debugging session by pressing ${action(it)}. On macOS, a system might ask for a password to start the debug server.")
         trigger("DebugClass")
         hitBreakpoint()
       }
       task("RunToCursor")
       {
         caret(18, 47)
-        text("Click at the end of the line 18 and press ${action(it)} to execute the <strong>Run to cursor</strong> action.")
+        text("The caret now is at the end of the line 18. Press ${action(it)} to execute the <strong>Run to cursor</strong> action.")
         trigger("RunToCursor")
       }
       task("StepInto") {
