@@ -55,7 +55,7 @@ func main() {
             }
             task {
                 caret(17, 9)
-                text("Type <code>message.panic</code> and press <action>EditorTab</action>. Select <code>panic</code> from the list of suggestions.")
+                text("Type <code>message.panic</code> and press <action>EditorEnter</action>. Select <code>panic</code> from the list of suggestions.")
                 trigger("EditorChooseLookupItem") { checkState("{\n" +
                         "\tdata := make([]byte, 100)\n" +
                         "\tmessage := \"Error\"\n" +
