@@ -5,6 +5,7 @@ import com.goide.sdk.GoSdkVersion
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.util.Disposer
+import com.intellij.openapi.util.SystemInfo
 import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugSessionListener
 import com.intellij.xdebugger.XDebuggerManager
@@ -53,7 +54,8 @@ func Factorial(n int, withBreak bool) int {
         trigger("ToggleLineBreakpoint")
       }
       task("DebugClass") {
-        text("Run the debugging session by pressing ${action(it)}. On macOS, a system might ask for a password to start the debug server.")
+        text("Run the debugging session by pressing ${action(it)}." +
+                if (SystemInfo.isMac) " Keep in mind that a system might ask for a password to start the debug server." else "")
         trigger("DebugClass")
         hitBreakpoint()
       }
@@ -92,7 +94,7 @@ func Factorial(n int, withBreak bool) int {
         }
       }
       task("Stop") {
-        text("Press ${action(it)} to stop debugging and proceed to the next lesson.")
+        text("Press ${action(it)} to stop debugging and finish the lesson.")
         trigger("Stop")
       }
     }
